@@ -11,12 +11,13 @@ const common_1 = require("@nestjs/common");
 const todo_service_1 = require("./todo.service");
 const todo_controller_1 = require("./todo.controller");
 const database_module_1 = require("../database/database.module");
+const auth_module_1 = require("../auth/auth.module");
 let TodoModule = class TodoModule {
 };
 exports.TodoModule = TodoModule;
 exports.TodoModule = TodoModule = __decorate([
     (0, common_1.Module)({
-        imports: [database_module_1.DatabaseModule],
+        imports: [database_module_1.DatabaseModule, auth_module_1.AuthModule],
         controllers: [todo_controller_1.TodoController],
         providers: [todo_service_1.TodoService],
     })

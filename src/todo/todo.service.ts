@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { DatabaseService } from 'src/database/database.service';
-import { Prisma } from '@prisma/client'
-import { userEmail } from 'src/common/decorator/user-email.decorator';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class TodoService {
@@ -11,30 +10,30 @@ export class TodoService {
 
   async create(createTodoDto: CreateTodoDto, email: string){
     try{
-      const user = await this.databaseService.user.findUnique({ where: {email}});
+      const user = await this.databaseService.user.findUnique({ where: { email } });
       if (!user) {
         throw new Error('User not found');
       }
       let data: Prisma.TodoCreateInput = {
         description : createTodoDto.description,
-        task : createTodoDto.task,
-        status : 'ACTIVE', 
+        task: createTodoDto.task,
+        status : 'ACTIVE',
         user: {
           connect: { email: user.email },
         },
-  
       }
-      return this.databaseService.todo.create({data});
+      return  this.databaseService.todo.create({data});
     }catch(err){
       return err
     }
+    
   }
 
   async findAll( userEmail: string) {
-    return this.databaseService.todo.findMany({
+    return  this.databaseService.todo.findMany({
       where:{
         userEmail: userEmail
-      }
+      },
     });
   }
 
@@ -43,13 +42,13 @@ export class TodoService {
       where:{
         id: id
       }
-    });
+    })
   }
 
   async update(id: number, updateTodoDto: UpdateTodoDto) {
     return this.databaseService.todo.update({
       where:{
-        id: id
+        id:id
       },
       data: updateTodoDto
     });

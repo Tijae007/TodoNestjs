@@ -40,7 +40,7 @@ let TodoService = class TodoService {
         return this.databaseService.todo.findMany({
             where: {
                 userEmail: userEmail
-            }
+            },
         });
     }
     async findOne(id) {
